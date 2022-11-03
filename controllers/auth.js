@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const signup = (req, res) => {
     // res.json('its successful')
     console.log(req.body);
