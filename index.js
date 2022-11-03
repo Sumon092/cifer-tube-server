@@ -1,15 +1,21 @@
-// const express = require('express')
-import express from "express";
+const express = require('express')
+// import express from "express";
 const app = express()
-// require('dotenv').config();
-import dotenv from "dotenv";
-dotenv.config();
+require('dotenv').config();
+// import dotenv from "dotenv";
+// dotenv.config();
 // const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 5000;
-// const mongoose = require('mongoose');
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
+// import mongoose from "mongoose";
 // import mongoose from "mongoose"
-import userRoutes from "./routes/users.js";
+// import authRoutes from "./routes/auth.js";
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users.js');
+// const authRoutes = require('authRoutes');
+// import userRoutes from "./routes/users.js";
+const videoRoutes = require("./routes/videos.js");
+const commentRoutes = require("./routes/comments.js");
 // const cors = require('cors');
 // import cors from "node:child_process"
 const corsConfig = {
@@ -38,7 +44,10 @@ const connect = () => {
     })
 }
 
+app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/videos', videoRoutes)
+app.use('/api/comments', commentRoutes)
 
 
 app.listen(port, () => {
