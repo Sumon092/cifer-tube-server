@@ -4,7 +4,7 @@ const app = express()
 require('dotenv').config();
 // import dotenv from "dotenv";
 // dotenv.config();
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 // import mongoose from "mongoose";
@@ -16,6 +16,7 @@ const userRoutes = require('./routes/users.js');
 // import userRoutes from "./routes/users.js";
 const videoRoutes = require("./routes/videos.js");
 const commentRoutes = require("./routes/comments.js");
+const cookieParser = require('cookie-parser');
 // const cors = require('cors');
 // import cors from "node:child_process"
 const corsConfig = {
@@ -43,7 +44,8 @@ const connect = () => {
         throw err;
     })
 }
-
+// app.use(jwt())
+app.use(cookieParser())
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/videos', videoRoutes)
