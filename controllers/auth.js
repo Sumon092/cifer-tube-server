@@ -38,20 +38,17 @@ const signIn = async (req, res, next) => {
         if (!user) {
             return next(createError(404, "User not found"))
         }
-
-        // const isCorrect = bcrypt.compareSync(req.body.password, user.password);
-        const password = (req.body.password)
-        console.log(password);
-        const isCorrect = await bcrypt.compare(password, user.password);
+        const isCorrect = await bcrypt.compare(req.body.password, user.password);
 
         if (!isCorrect) {
             return next(createError(400, "Wrong Credential"))
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT);
+        const { password, ...other } = user._doc;
         return res.cookie("access-token", token, {
             httpOnly: true
-        }).status(200).json(user);
+        }).status(200).json(other);
 
     } catch (err) {
         next(err)
