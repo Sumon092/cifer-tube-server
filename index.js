@@ -49,6 +49,8 @@ app.use('/api/users', userRoutes)
 app.use('/api/videos', videoRoutes)
 app.use('/api/comments', commentRoutes)
 
+// app.use((err, req, res, next))
+
 
 app.listen(port, () => {
     connect()
