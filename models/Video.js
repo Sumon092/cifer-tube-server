@@ -29,23 +29,23 @@ const videoSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    views:{
-        type:Number,
-        default:0
+    views: {
+        type: Number,
+        default: 0
     },
-    tags:{
-        type:[String],
-        default:[]
+    tags: {
+        type: [String],
+        default: []
     },
-    likes:{
-        type:[String],
-        default:0
+    likes: {
+        type: [String],
+        default: 0
     },
-    dislikes:{
-        type:[String],
-        default:0
+    dislikes: {
+        type: [String],
+        default: 0
     },
-    
+
 }, { timestamps: true });
 
-export default mongoose.models("Video", videoSchema);
+module.exports = mongoose.model("Video", videoSchema);

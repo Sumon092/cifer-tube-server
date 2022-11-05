@@ -3,18 +3,8 @@ const User = require("../models/User.js");
 const createError = require('../error.js');
 const jwt = require('jsonwebtoken');
 
-
+// create user
 const signup = async (req, res, next) => {
-    // try {
-    //     const salt =await bcrypt.genSaltSync(10);
-    //     const hash =await bcrypt.hashSync(req.body.password, salt);
-
-    //     const newUser = new User({ ...req.body, password: hash });
-    //     await newUser.save();
-    //     res.status(200).send('user added successfully');
-    // } catch (err) {
-    //     next(err)
-    // }
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
@@ -32,6 +22,8 @@ const signup = async (req, res, next) => {
 
 
 }
+
+// signIn user
 const signIn = async (req, res, next) => {
     try {
         const user = await User.findOne({ name: req.body.name });
@@ -46,10 +38,10 @@ const signIn = async (req, res, next) => {
 
         const token = jwt.sign({ id: user._id }, process.env.JWT);
         const { password, ...other } = user._doc;
-        return res.cookie("access-token", token, {
+
+        return res.cookie("access_token", token, {
             httpOnly: true
         }).status(200).json(other);
-
     } catch (err) {
         next(err)
     }
