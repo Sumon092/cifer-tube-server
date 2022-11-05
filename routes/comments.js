@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/', verifyJwt, addComment)
 router.delete('/:id', verifyJwt, deleteComment)
-router.post('/:videoId', getComments)
+router.get('/:videoId', getComments)
 
 module.exports = router;

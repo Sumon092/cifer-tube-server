@@ -1,9 +1,9 @@
-const Video = require("../models/Video");
-const Comment = require("../models/Comment");
+const Video = require("../models/Video.js");
+const Comment = require("../models/Comment.js");
 const createError = require("../error.js");
 
+// Create a comment 
 const addComment = async (req, res, next) => {
-
     const newComment = new Comment({ ...req.body, userId: req.user.id })
     try {
         const savedComment = await newComment.save()
@@ -33,7 +33,6 @@ const deleteComment = async (req, res, next) => {
 
 
 const getComments = async (req, res, next) => {
-
     try {
         const comment = await Comment.find({ videoId: req.params.videoId });
         res.status(200).json(comment)
