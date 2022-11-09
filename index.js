@@ -1,14 +1,15 @@
 const express = require('express')
 const app = express()
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
+const mongoose = require('mongoose');
+const cors = require('cors');
+const port = process.env.PORT || 5000;
 // require('dotenv').config();
 // const dotenv = require('dotenv')
 // dotenv.config({ path: __dirname + '/.env' });
-const port = process.env.PORT || 5000;
-const mongoose = require('mongoose');
-const cors = require('cors');
 // const path = require("path");
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, './.env') });
+
 app.use(express.static(path.join(__dirname, "client", "build")));
 const corsConfig = {
     origin: '*',
@@ -35,8 +36,9 @@ const cookieParser = require('cookie-parser');
 
 //db connect
 const connect = () => {
-    const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.glu2qtp.mongodb.net/?retryWrites=true&w=majority`
-    mongoose.connect(uri).then(() => {
+    // const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.glu2qtp.mongodb.net/?retryWrites=true&w=majority`
+    // console.log(uri)
+    mongoose.connect("mongodb+srv://ciferTube:bGPcXm4Nv1g7K9CP@cluster0.glu2qtp.mongodb.net/?retryWrites=true&w=majority").then(() => {
         console.log('connected to mongoDb');
     }).catch((err) => {
         throw err;
