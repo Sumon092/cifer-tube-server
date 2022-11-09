@@ -4,13 +4,15 @@ require('dotenv').config();
 const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 const cors = require('cors');
-const corsConfig = {
-    origin: '*',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
-}
-app.use(cors(corsConfig));
-app.options("*", cors(corsConfig));
+const path = require("path");
+app.use(express.static(path.join(__dirname, "client", "build")));
+// const corsConfig = {
+//     origin: '*',
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE']
+// }
+app.use(cors());
+app.options("*", cors());
 app.use(express.json());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
@@ -29,7 +31,8 @@ const cookieParser = require('cookie-parser');
 
 //db connect
 const connect = () => {
-    mongoose.connect(process.env.MONGO_URI).then(() => {
+    const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.glu2qtp.mongodb.net/?retryWrites=true&w=majority`
+    mongoose.connect(uri).then(() => {
         console.log('connected to mongoDb');
     }).catch((err) => {
         throw err;
@@ -53,7 +56,9 @@ app.use((err, req, res, next) => {
         message
     })
 })
-
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(port, () => {
     connect()

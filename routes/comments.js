@@ -5,8 +5,8 @@ const verifyJwt = require('../verifyJwt.js');
 
 const router = express.Router();
 
-// router.post('/', verifyJwt, addComment)
-router.delete('/four/:id', verifyJwt, deleteComment)
-router.get('/five/:videoId', getComments)
+router.post('/addComment', verifyJwt, addComment)
+router.delete('/:id', verifyJwt, deleteComment)
+router.get('/:videoId', getComments)
 
 module.exports = router;
