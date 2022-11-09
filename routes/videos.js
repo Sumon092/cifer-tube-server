@@ -6,8 +6,8 @@ const router = express.Router();
 
 // create video
 // router.post('/', addVideo);
-router.post('/:id', verifyToken, updateVideo);
-router.delete('/:id', verifyToken, deleteVideo);
+router.post('/six/:id', verifyToken, updateVideo);
+router.delete('/one/:id', verifyToken, deleteVideo);
 router.get('/find/:id', getVideo);
 router.put('/view/:id', addView);
 router.get('/random', random);

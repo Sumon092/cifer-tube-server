@@ -7,9 +7,9 @@ const router = express.Router();
 
 //update user
 router.put('/allUser', verifyJwt, getUsers);
-router.put('/:id', verifyJwt, update);
+router.put('/two/:id', verifyJwt, update);
 //delete user
-router.delete('/:id', verifyJwt, deleteUser)
+router.delete('/three/:id', verifyJwt, deleteUser)
 //get a user
 router.get('/find/:id', getUser)
 //subscribe a user
