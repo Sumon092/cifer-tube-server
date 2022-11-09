@@ -1,18 +1,20 @@
 const express = require('express')
 const app = express()
-require('dotenv').config();
+// require('dotenv').config();
+const dotenv = require('dotenv')
+dotenv.config({ path: __dirname + '/.env' });
 const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require("path");
 app.use(express.static(path.join(__dirname, "client", "build")));
-// const corsConfig = {
-//     origin: '*',
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE']
-// }
-app.use(cors());
-app.options("*", cors());
+const corsConfig = {
+    origin: '*',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}
+app.use(cors(corsConfig));
+app.options("*", cors(corsConfig));
 app.use(express.json());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
