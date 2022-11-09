@@ -4,8 +4,10 @@ const User = require("../models/User.js");
 const mongoose = require('mongoose');
 
 const addVideo = async (req, res, next) => {
+
     // add video
-    const newVideo = new Video({ userId: req.user.id, ...req.body });
+    const newVideo = new Video({ userId: mongoose.Types.ObjectId(), ...req.body });
+    // const newVideo = new Video({ userId: req.user.id, ...req.body });
     try {
         const savedVideo = await newVideo.save()
         res.status(200).json(savedVideo)
