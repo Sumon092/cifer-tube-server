@@ -1,11 +1,12 @@
 
 const express = require('express');
 const verifyJwt = require('../verifyJwt.js');
-const { update, deleteUser, getUser, sub, unSub, like, disLike } = require('../controllers/user.js');
+const { update, deleteUser, getUser, sub, unSub, like, disLike, getAllUser, getUsers } = require('../controllers/user.js');
 
 const router = express.Router();
 
 //update user
+router.put('/allUser', verifyJwt, getUsers);
 router.put('/:id', verifyJwt, update);
 //delete user
 router.delete('/:id', verifyJwt, deleteUser)
@@ -16,9 +17,9 @@ router.put('/sub/:id', sub)
 //unsubscribe a user
 router.put('/unSub/:id', unSub)
 //like a video
-router.put('/like/:videoId', like);
+router.put('/likes/:videoId', like);
 // dislike a video
-router.put('/disLike/:videoId', disLike);
+router.put('/disLikes/:videoId', disLike);
 
 
 module.exports = router;

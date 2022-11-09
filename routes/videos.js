@@ -5,10 +5,10 @@ const verifyToken = require('../verifyJwt.js');
 const router = express.Router();
 
 // create video
-router.post('/', verifyToken, addVideo);
+router.post('/', addVideo);
 router.post('/:id', verifyToken, updateVideo);
 router.delete('/:id', verifyToken, deleteVideo);
-router.get('/allVideo', getVideo);
+router.get('/find/:id', getVideo);
 router.put('/view/:id', addView);
 router.get('/random', random);
 router.get('/trend', trend);

@@ -1,6 +1,9 @@
 const createError = require('../error.js');
 const User = require('../models/User.js');
+const Video = require('../models/Video.js');
+const mongoose = require('mongoose');
 
+// update user
 const update = async (req, res, next) => {
     if (req.params.id === req.user.id) {
 
@@ -24,6 +27,7 @@ const update = async (req, res, next) => {
     };
 };
 
+// delete a user
 const deleteUser = async (req, res, next) => {
     if (req.params.id === req.user.id) {
 
@@ -38,6 +42,15 @@ const deleteUser = async (req, res, next) => {
     else {
         return next(createError(403, "You can only delete your account"));
     };
+}
+const getUsers = async (req, res, next) => {
+    // const users = req.body;
+    try {
+        const user = await User.find(req.body)
+        res.status(200).json(user)
+    } catch (err) {
+        next(err)
+    }
 }
 const getUser = async (req, res, next) => {
     try {
@@ -75,11 +88,38 @@ const unSub = async (req, res, next) => {
 
     }
 }
-const like = (req, res, next) => {
+const like = async (req, res, next) => {
+
+    // const id = req.user.id
+    // console.log(user.findOne(req.params.id));
+    const id = mongoose.Types.ObjectId();
+    // console.log("user is", id)
+    const videoId = req.params.videoId;
+    try {
+        await Video.findByIdAndUpdate(videoId, {
+            $addToSet: { likes: id },
+            $pull: { disLikes: id }
+        });
+        res.status(200).json("The video has been liked");
+    } catch (error) {
+        next(error)
+    }
 
 }
-const disLike = (req, res, next) => {
-
+const disLike = async (req, res, next) => {
+    // const id = req.users.id;
+    // const id = mongoose.users.Types.ObjectId();
+    // console.log("dislike id", id);
+    const videoId = req.params.videoId;
+    try {
+        await Video.findByIdAndUpdate(videoId, {
+            $addToSet: { disLikes: id },
+            $pull: { likes: id }
+        });
+        res.status(200).json("The video has been disliked");
+    } catch (error) {
+        next(error)
+    }
 }
 
 
@@ -91,5 +131,6 @@ module.exports = {
     sub,
     unSub,
     like,
-    disLike
+    disLike,
+    getUsers
 };

@@ -4,6 +4,7 @@ const User = require("../models/User.js");
 const mongoose = require('mongoose');
 
 const addVideo = async (req, res, next) => {
+    // add video
     const newVideo = new Video({ userId: req.user.id, ...req.body });
     try {
         const savedVideo = await newVideo.save()
@@ -13,6 +14,7 @@ const addVideo = async (req, res, next) => {
     }
 };
 
+// update a video
 const updateVideo = async (req, res, next) => {
 
     try {
@@ -36,6 +38,7 @@ const updateVideo = async (req, res, next) => {
     }
 };
 
+//delete a video
 const deleteVideo = async (req, res, next) => {
 
     try {
@@ -52,6 +55,8 @@ const deleteVideo = async (req, res, next) => {
     }
 };
 
+
+// get all video
 const getVideo = async (req, res, next) => {
 
     try {
@@ -62,6 +67,7 @@ const getVideo = async (req, res, next) => {
     }
 };
 
+// add to view
 const addView = async (req, res, next) => {
 
     try {
@@ -74,8 +80,8 @@ const addView = async (req, res, next) => {
     }
 };
 
+// to show rand video
 const random = async (req, res, next) => {
-
     try {
         const videos = await Video.aggregate([{ $sample: { size: 40 } }])
         res.status(200).json(videos);
@@ -85,7 +91,6 @@ const random = async (req, res, next) => {
 };
 
 const trend = async (req, res, next) => {
-
     try {
         const video = await Video.find().sort({ views: -1 })
         res.status(200).json(video);
