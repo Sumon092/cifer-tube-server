@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
-const mongoose = require('mongoose');
 const cors = require('cors');
 const port = process.env.PORT || 5000;
+const mongoose = require('mongoose');
 // require('dotenv').config();
 // const dotenv = require('dotenv')
 // dotenv.config({ path: __dirname + '/.env' });
