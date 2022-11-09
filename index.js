@@ -1,12 +1,14 @@
 const express = require('express')
 const app = express()
 // require('dotenv').config();
-const dotenv = require('dotenv')
-dotenv.config({ path: __dirname + '/.env' });
+// const dotenv = require('dotenv')
+// dotenv.config({ path: __dirname + '/.env' });
 const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require("path");
+// const path = require("path");
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 app.use(express.static(path.join(__dirname, "client", "build")));
 const corsConfig = {
     origin: '*',
